@@ -66,14 +66,14 @@ describe("OfflineBackupController", () => {
 
     it("handles localStorage quota exceeded gracefully", () => {
       const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {})
-      const setItemSpy = globalThis.Storage && localStorage instanceof Storage
-        ? vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => { throw new DOMException("QuotaExceededError") })
-        : vi.spyOn(localStorage, "setItem").mockImplementation(() => { throw new DOMException("QuotaExceededError") })
+      const origSetItem = localStorage.setItem
+      localStorage.setItem = () => { throw new DOMException("QuotaExceededError") }
 
       // Should not throw
       expect(() => controller.save("test.md", "content")).not.toThrow()
       expect(warnSpy).toHaveBeenCalledWith("localStorage backup failed:", expect.any(DOMException))
-      expect(setItemSpy).toHaveBeenCalled()
+
+      localStorage.setItem = origSetItem
     })
   })
 

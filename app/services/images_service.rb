@@ -359,9 +359,6 @@ class ImagesService
 
         file_content = File.binread(output_file.path)
         [ file_content, "image/jpeg", output_name ]
-      rescue Errno::ENOENT => e
-        Rails.logger.warn "ImageMagick convert not available: #{e.message}"
-        [ source_path.binread, content_type_for(source_path), original_name ]
       ensure
         source_file.unlink
         output_file.unlink
