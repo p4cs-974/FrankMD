@@ -175,10 +175,16 @@
 curl -sL https://raw.githubusercontent.com/akitaonrails/FrankMD/master/install.sh | bash
 ```
 
-Then add to your `~/.bashrc` or `~/.zshrc`:
+Then add to your shell config:
 
 ```bash
 source ~/.config/frankmd/fed.sh
+```
+
+For Fish:
+
+```fish
+source ~/.config/frankmd/fed.fish
 ```
 
 To update, run the curl command again.
@@ -212,10 +218,16 @@ export FRANKMD_ENV=~/.config/frankmd/env
 
 FrankMD auto-detects your browser in this order: **Chromium** → Firefox → Brave → Chrome → Edge. The first one found is used.
 
-To override, set `FRANKMD_BROWSER` in your `~/.bashrc` or `~/.zshrc`:
+To override, set `FRANKMD_BROWSER` in your shell config:
 
 ```bash
 export FRANKMD_BROWSER=brave           # or chromium, google-chrome, microsoft-edge, firefox
+```
+
+Fish equivalent:
+
+```fish
+set -gx FRANKMD_BROWSER brave
 ```
 
 For Firefox, enable SSB mode first: `about:config` → `browser.ssb.enabled` = `true`
